@@ -3,14 +3,16 @@ using AmarinShoppingCart.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AmarinShoppingCart.Migrations
 {
     [DbContext(typeof(AmarinShoppingCartContext))]
-    partial class AmarinShoppingCartContextModelSnapshot : ModelSnapshot
+    [Migration("20220308132041_AddedSuppliers")]
+    partial class AddedSuppliers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,50 +68,6 @@ namespace AmarinShoppingCart.Migrations
                     b.ToTable("pages");
                 });
 
-            modelBuilder.Entity("AmarinShoppingCart.Models.Product", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Slug")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("barCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("categoryId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("costInclusive")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<bool>("isDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<decimal>("priceInclusive")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("productName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("supplierId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("categoryId");
-
-                    b.HasIndex("supplierId");
-
-                    b.ToTable("products");
-                });
-
             modelBuilder.Entity("AmarinShoppingCart.Models.Supplier", b =>
                 {
                     b.Property<int>("SupplierID")
@@ -151,25 +109,6 @@ namespace AmarinShoppingCart.Migrations
                     b.HasKey("SupplierID");
 
                     b.ToTable("suppliers");
-                });
-
-            modelBuilder.Entity("AmarinShoppingCart.Models.Product", b =>
-                {
-                    b.HasOne("AmarinShoppingCart.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("categoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AmarinShoppingCart.Models.Supplier", "Supplier")
-                        .WithMany()
-                        .HasForeignKey("supplierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-
-                    b.Navigation("Supplier");
                 });
 #pragma warning restore 612, 618
         }

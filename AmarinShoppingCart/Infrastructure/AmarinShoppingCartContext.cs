@@ -16,5 +16,7 @@ namespace AmarinShoppingCart.Infrastructure
 
         public DbSet<Page> pages { get; set; }
         public DbSet<Category> categories { get; set; }
+        public DbSet<Supplier> suppliers { get; set; }
+        public DbSet<Product> products { get; set; }
     }
 }

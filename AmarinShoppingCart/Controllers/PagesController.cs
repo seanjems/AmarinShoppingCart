@@ -42,7 +42,7 @@ namespace AmarinShoppingCart.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<Page>> PutPage(int id, Page page)
         {
-            if (page.Id != id)
+            if (page.Id != id || !ModelState.IsValid)
             {
                 return BadRequest();
             }
@@ -55,7 +55,10 @@ namespace AmarinShoppingCart.Controllers
         [HttpPost]
         public async Task<ActionResult<Page>> PostPage(Page page)
         {
-
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
             context.pages.Add(page);
             await context.SaveChangesAsync();
 
@@ -67,6 +70,10 @@ namespace AmarinShoppingCart.Controllers
         public async Task<ActionResult<Page>> DeletePage(int id)
         {
             var page = context.pages.Find(id);
+            if (page == null)
+            {
+                return NotFound();
+            }
             context.pages.Remove(page);
             await context.SaveChangesAsync();
 

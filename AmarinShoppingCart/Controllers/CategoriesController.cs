@@ -42,7 +42,7 @@ namespace AmarinShoppingCart.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<Category>> PutCategory(int id, Category category)
         {
-            if (category.Id != id)
+            if (category.Id != id || !ModelState.IsValid)
             {
                 return BadRequest();
             }
@@ -55,6 +55,10 @@ namespace AmarinShoppingCart.Controllers
         [HttpPost]
         public async Task<ActionResult<Category>> PostCategory(Category category)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
 
             context.categories.Add(category);
             await context.SaveChangesAsync();
@@ -67,6 +71,10 @@ namespace AmarinShoppingCart.Controllers
         public async Task<ActionResult<Category>> DeleteCategory(int id)
         {
             var category = context.categories.Find(id);
+            if (category == null)
+            {
+                return NotFound();
+            }
             context.categories.Remove(category);
             await context.SaveChangesAsync();
 
