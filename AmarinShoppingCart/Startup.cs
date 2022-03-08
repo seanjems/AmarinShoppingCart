@@ -1,7 +1,9 @@
+using AmarinShoppingCart.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,6 +30,9 @@ namespace AmarinShoppingCart
         {
 
             services.AddControllers();
+            services.AddDbContext<AmarinShoppingCartContext>(options => options.UseSqlServer
+            (Configuration.GetConnectionString("AmarinShoppingCartContext")));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AmarinShoppingCart", Version = "v1" });
