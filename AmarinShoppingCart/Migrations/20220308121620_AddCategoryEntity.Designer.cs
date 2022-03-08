@@ -3,14 +3,16 @@ using AmarinShoppingCart.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AmarinShoppingCart.Migrations
 {
     [DbContext(typeof(AmarinShoppingCartContext))]
-    partial class AmarinShoppingCartContextModelSnapshot : ModelSnapshot
+    [Migration("20220308121620_AddCategoryEntity")]
+    partial class AddCategoryEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

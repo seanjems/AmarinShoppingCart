@@ -11,8 +11,10 @@ namespace AmarinShoppingCart.Infrastructure
     {
         public AmarinShoppingCartContext(DbContextOptions<AmarinShoppingCartContext> options) : base(options)
         {
+
         }
 
         public DbSet<Page> pages { get; set; }
+        public DbSet<Category> categories { get; set; }
     }
 }
