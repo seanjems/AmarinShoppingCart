@@ -23,7 +23,9 @@ namespace AmarinShoppingCart.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
-            return await context.products.Take(50).ToListAsync();
+            //Take the top 50 so as to reduce amount of data. 
+            // I could modify this to work with pagination or set the number of products to return via a parameter
+            return await context.products.Include(x=>x.Supplier).Include(x=>x.Category).OrderByDescending(x=>x.Id).Take(50).ToListAsync();
         }
 
         //GET /api/products/5
