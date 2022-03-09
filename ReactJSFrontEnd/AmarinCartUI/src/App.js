@@ -1,24 +1,31 @@
 import logo from './logo.svg';
 import './App.css';
 
+import  Home from './components/Home';
+import  Categories from './components/Categories';
+import  Suppliers from './components/Suppliers';
+import  Products from './components/Products';
+import Navigation from './components/Navigation';
+import Pages from './components/Pages';
+
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <BrowserRouter>
+    <div className="container">
+      <h2 className='m-3 d-flex justify-content-center fw-bold'>Amarin Shopping Cart</h2>
+
+      <Navigation/>
+      <Switch>
+        <Route path="/" component={Home} exact/>;
+        <Route path="/categories" component={Categories} />;
+        <Route path="/suppliers" component={Suppliers} />;
+        <Route path="/products" component={Products} />;
+        <Route path="/pages" component={Pages} />;
+      </Switch>
     </div>
+    </BrowserRouter>
   );
 }
 
