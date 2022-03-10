@@ -45,6 +45,7 @@ class Pages extends Component {
         .then(
           (result) => {
             alert(result === "" ? "Success" : result);
+            this.refreshList();
           },
           (error) => {
             // if (isMounted)
@@ -75,7 +76,7 @@ class Pages extends Component {
         <AddPagesModel
           show={this.state.AddPagesModelShow}
           onHide={AddPagesModelShowClose} //handle the madalised window close and hide events
-          onClick={AddPagesModelShowUpdate} //receive data from modalised window and handle post from here(parent)
+          onSubmit={AddPagesModelShowUpdate} //receive data from modalised window and handle post from here(parent)
         />
 
         {/* Bootstrap table for the list */}

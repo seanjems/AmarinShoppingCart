@@ -65,7 +65,8 @@ class AddPagesModel extends Component {
                 <Form.Group>
                   <Button
                     variant="primary"
-                    onClick={this.props.onClick.bind(null, this.state)} //binding prevents premature post requests in the parent
+                    type="submit"
+                    onClick={this.props.onSubmit.bind(null, this.state)}
                     className="m-2">
                     Submit
                   </Button>
