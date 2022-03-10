@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { Modal, Button, Row, Col, Form } from "react-bootstrap";
 
-class AddPagesModel extends Component {
+class EditPageModel extends Component {
   constructor(props) {
     super(props);
+
+    //Receive Initial edit data from parent
     this.state = {
       id: 0,
       title: "",
@@ -11,8 +13,9 @@ class AddPagesModel extends Component {
       content: "",
       sorting: 100,
     };
-    //this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  //   Update the state and controls on change event
   handlePageTitleChage = (event) => {
     this.setState({ title: event.target.value });
   };
@@ -21,6 +24,27 @@ class AddPagesModel extends Component {
     this.setState({ content: event.target.value });
   };
 
+  //   addBackgroundDataToState = (event) => {
+  //     this.setState({
+  //       id: this.props.pid,
+  //       slug: this.props.pslug,
+  //       sorting: this.props.psorting,
+  //       content:
+  //         this.state.content === "" ? this.props.pcontent : this.state.content,
+  //       title: this.state.title === "" ? this.props.ptitle : this.state.title,
+  //     });
+  //     console.log()
+  //   };
+
+  onModalShown = () => {
+    this.setState({
+      id: this.props.pid,
+      slug: this.props.pslug,
+      sorting: this.props.psorting,
+      content: this.props.pcontent,
+      title: this.props.ptitle,
+    });
+  };
   render() {
     return (
       <div className="container">
@@ -31,20 +55,22 @@ class AddPagesModel extends Component {
           centered>
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
-              Add Page
+              Edit Page
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
+            {/* Update textboxes when popup shows */}
+
             <Row>
               <Col sm={12}>
-                <Form typeof="submit">
+                <Form>
                   <Form.Group>
                     <div className="col p-2">
                       <label className="row">Page Title</label>
                       <input
                         className="row form-control"
                         type="text"
-                        value={this.state.title}
+                        defaultValue={this.props.ptitle}
                         onChange={this.handlePageTitleChage}
                       />
                     </div>
@@ -56,8 +82,8 @@ class AddPagesModel extends Component {
                       <label className="row">Page Content</label>
                       <textarea
                         className="row form-control"
+                        defaultValue={this.props.pcontent}
                         type="text"
-                        value={this.state.content}
                         onChange={this.handlePageContentChage}></textarea>
                     </div>
                   </Form.Group>
@@ -87,4 +113,4 @@ class AddPagesModel extends Component {
   }
 }
 
-export default AddPagesModel;
+export default EditPageModel;

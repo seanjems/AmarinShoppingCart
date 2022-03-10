@@ -2,12 +2,18 @@ import React, { Component } from "react";
 import { Table, Button, ButtonToolbar } from "react-bootstrap";
 
 import AddPagesModel from "./AddPagesModal";
+import EditPagesModel from "./EditPagesModal";
 
 class Pages extends Component {
   //declare an array to store data from server
   constructor(props) {
     super(props);
-    this.state = { pages: [], AddPagesModelShow: false };
+
+    this.state = {
+      pages: [],
+      AddPagesModelShow: false,
+      EditPagesModelShow: false,
+    };
   }
 
   //method to get api data
@@ -26,10 +32,15 @@ class Pages extends Component {
   }
 
   render() {
-    const { pages } = this.state;
+    const { pages, pid, ptitle, pslug, pcontent, psorting } = this.state;
+
     //defining the onHide function for the entry form
     let AddPagesModelShowClose = () =>
       this.setState({ AddPagesModelShow: false });
+
+    //defining the onHide function for the EDIT form
+    let EditPagesModelShowClose = () =>
+      this.setState({ EditPagesModelShow: false });
 
     //define OnUpdate fn for Entryform so as to update DOM
     let AddPagesModelShowUpdate = (jsondata) => {
@@ -44,7 +55,7 @@ class Pages extends Component {
         .then((res) => res.json())
         .then(
           (result) => {
-            alert(result === "" ? "Success" : result);
+            alert("Success");
             this.refreshList();
           },
           (error) => {
@@ -55,6 +66,35 @@ class Pages extends Component {
       //   return () => {
       //     isMounted = false;
       //   };
+    };
+
+    //define OnUpdate fn for EDITFORM so as to update DOM
+    let EditPagesModelShowUpdate = (jsondata) => {
+      fetch(process.env.REACT_APP_API + "pages/" + jsondata["id"], {
+        method: "PUT",
+        headers: {
+          accept: "text/plain",
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify(jsondata),
+      })
+        .then((res) => res.json())
+        .then(
+          (response) => {
+            console.log(response.status);
+            if (response.ok) {
+              alert("Success");
+              this.refreshList();
+            } else {
+              alert("Failed to update; " + response.title);
+            }
+          },
+          (error) => {
+            // if (isMounted)
+            alert("Failed; " + error.title);
+          }
+        );
     };
 
     //On form submission method Raised event fromchild
@@ -97,7 +137,44 @@ class Pages extends Component {
                 <td>{page.id}</td>
                 <td>{page.title}</td>
                 <td>{page.content}</td>
-                <td>Edit / Delete</td>
+
+                {/* EDIT PAGE BUTTON*/}
+                {/* ///////////////////////////////////////////////// */}
+                <td>
+                  <ButtonToolbar>
+                    <Button
+                      className="mr-2 btn-info"
+                      onClick={() => {
+                        this.setState({
+                          pid: page.id,
+                          ptitle: page.title,
+                          pslug: page.slug,
+                          pcontent: page.content,
+                          psorting: page.sorting,
+                        });
+                        this.setState({ EditPagesModelShow: true });
+                      }}>
+                      Edit
+                    </Button>
+
+                    <EditPagesModel
+                      show={this.state.EditPagesModelShow}
+                      onHide={EditPagesModelShowClose} //handle the madalised window close and hide events
+                      onSubmit={EditPagesModelShowUpdate} //receive data from modalised window and handle post from here(parent)
+                      //pass initial values to the edit window
+                      pid={pid}
+                      ptitle={ptitle}
+                      pslug={pslug}
+                      pcontent={pcontent}
+                      psorting={psorting}
+                      onEntered={function () {
+                        console.log("onEntered ");
+                      }}
+                    />
+                  </ButtonToolbar>
+                </td>
+
+                {/* Create listener events for popup activities */}
               </tr>
             ))}
           </tbody>

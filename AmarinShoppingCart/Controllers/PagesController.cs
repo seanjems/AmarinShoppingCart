@@ -46,6 +46,12 @@ namespace AmarinShoppingCart.Controllers
             {
                 return BadRequest();
             }
+            var pageTest = context.pages.Find(id);
+            if (pageTest == null)
+            {
+                return NotFound();
+            }
+
             context.Entry(page).State = EntityState.Modified;
             await context.SaveChangesAsync();
 
@@ -59,6 +65,7 @@ namespace AmarinShoppingCart.Controllers
             {
                 return BadRequest();
             }
+
             context.pages.Add(page);
             await context.SaveChangesAsync();
 
