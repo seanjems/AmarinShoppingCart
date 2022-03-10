@@ -167,9 +167,6 @@ class Pages extends Component {
                       pslug={pslug}
                       pcontent={pcontent}
                       psorting={psorting}
-                      onEntered={function () {
-                        console.log("onEntered ");
-                      }}
                     />
                   </ButtonToolbar>
                 </td>

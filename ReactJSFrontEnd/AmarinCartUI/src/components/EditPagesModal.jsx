@@ -1,6 +1,28 @@
 import React, { Component } from "react";
 import { Modal, Button, Row, Col, Form } from "react-bootstrap";
 
+//var createReactClass = require("create-react-class");
+
+export class Notifier extends React.Component {
+  componentDidMount = () => {
+    this.props.onShown();
+  };
+  render() {
+    return function () {
+      return null;
+    };
+  }
+}
+
+// var Notifier = createReactClass()({
+//   componentDidMount: function () {
+//     this.props.onShown();
+//   },
+//   render: function () {
+//     return null;
+//   },
+// });
+
 class EditPageModel extends Component {
   constructor(props) {
     super(props);
@@ -15,6 +37,9 @@ class EditPageModel extends Component {
     };
   }
 
+  handleKeyDown = (event) => {
+    console.log("A key was pressed", event.keyCode);
+  };
   //   Update the state and controls on change event
   handlePageTitleChage = (event) => {
     this.setState({ title: event.target.value });
@@ -35,7 +60,7 @@ class EditPageModel extends Component {
   //     });
   //     console.log()
   //   };
-
+  componentDidUpdate() {}
   onModalShown = () => {
     this.setState({
       id: this.props.pid,
@@ -53,6 +78,7 @@ class EditPageModel extends Component {
           size="lg"
           aria-labelledby="contained-modal-title-vcenter"
           centered>
+          <Notifier onShown={this.onModalShown} />
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
               Edit Page
