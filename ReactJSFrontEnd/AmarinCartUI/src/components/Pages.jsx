@@ -1,15 +1,18 @@
 import React, { Component } from "react";
-import { Table } from "react-bootstrap";
+import { Table, Button, ButtonToolbar } from "react-bootstrap";
+
+import AddPagesModel from "./AddPagesModal";
 
 class Pages extends Component {
   //declare an array to store data from server
   constructor(props) {
     super(props);
-    this.state = { pages: [] };
+    this.state = { pages: [], AddPagesModelShow: false };
   }
 
   //method to get api data
   refreshList() {
+    //let isMounted = true; // to prevent Setting DOMdata during unmounting phase
     fetch(process.env.REACT_APP_API + "pages")
       .then((response) => response.json())
       .then((data) => {
@@ -22,20 +25,65 @@ class Pages extends Component {
     this.refreshList();
   }
 
-  //update DOM on DATA chage
-  componentDidUpdate() {
-    this.refreshList();
-  }
-
   render() {
     const { pages } = this.state;
+    //defining the onHide function for the entry form
+    let AddPagesModelShowClose = () =>
+      this.setState({ AddPagesModelShow: false });
+
+    //define OnUpdate fn for Entryform so as to update DOM
+    let AddPagesModelShowUpdate = (jsondata) => {
+      fetch(process.env.REACT_APP_API + "pages", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(jsondata),
+      })
+        .then((res) => res.json())
+        .then(
+          (result) => {
+            alert(result === "" ? "Success" : result);
+          },
+          (error) => {
+            // if (isMounted)
+            alert("Failed");
+          }
+        );
+      //   return () => {
+      //     isMounted = false;
+      //   };
+    };
+
+    //On form submission method Raised event fromchild
+
     return (
-      <div className="mt-5 d-flex justify-content-left">
+      <div className="mt-2 justify-content-left">
+        <div className="row">
+          <h1>Pages</h1>
+        </div>
+        <ButtonToolbar>
+          <Button
+            variant="primary"
+            onClick={() => this.setState({ AddPagesModelShow: true })}>
+            Add Page
+          </Button>
+        </ButtonToolbar>
+
+        {/* Create listener events for popup activities */}
+        <AddPagesModel
+          show={this.state.AddPagesModelShow}
+          onHide={AddPagesModelShowClose} //handle the madalised window close and hide events
+          onClick={AddPagesModelShowUpdate} //receive data from modalised window and handle post from here(parent)
+        />
+
+        {/* Bootstrap table for the list */}
         <Table
-          className="mt-4 table table-active table-bordered table-striped table-hover"
+          className="mt-2 table table-bordered table-striped table-hover"
           size="sm">
           <thead>
-            <tr>
+            <tr className="bg-light text-dark">
               <th>Id</th>
               <th>Title</th>
               <th>Content</th>
