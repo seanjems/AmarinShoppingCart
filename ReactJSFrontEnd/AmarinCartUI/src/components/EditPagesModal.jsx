@@ -1,28 +1,18 @@
 import React, { Component } from "react";
 import { Modal, Button, Row, Col, Form } from "react-bootstrap";
 
-//var createReactClass = require("create-react-class");
+//CUSTOM CLASS FOR ONSHOW WINDOW EVENT
 
 export class Notifier extends React.Component {
   componentDidMount = () => {
     this.props.onShown();
   };
   render() {
-    return function () {
-      return null;
-    };
+    return null;
   }
 }
 
-// var Notifier = createReactClass()({
-//   componentDidMount: function () {
-//     this.props.onShown();
-//   },
-//   render: function () {
-//     return null;
-//   },
-// });
-
+//main class for edit form
 class EditPageModel extends Component {
   constructor(props) {
     super(props);
@@ -49,17 +39,6 @@ class EditPageModel extends Component {
     this.setState({ content: event.target.value });
   };
 
-  //   addBackgroundDataToState = (event) => {
-  //     this.setState({
-  //       id: this.props.pid,
-  //       slug: this.props.pslug,
-  //       sorting: this.props.psorting,
-  //       content:
-  //         this.state.content === "" ? this.props.pcontent : this.state.content,
-  //       title: this.state.title === "" ? this.props.ptitle : this.state.title,
-  //     });
-  //     console.log()
-  //   };
   componentDidUpdate() {}
   onModalShown = () => {
     this.setState({

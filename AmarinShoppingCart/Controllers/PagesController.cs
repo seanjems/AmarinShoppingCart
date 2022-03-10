@@ -46,7 +46,7 @@ namespace AmarinShoppingCart.Controllers
             {
                 return BadRequest();
             }
-            var pageTest = context.pages.Find(id);
+            var pageTest = context.pages.Where(x=>x.Id==id).AsNoTracking().FirstOrDefault();
             if (pageTest == null)
             {
                 return NotFound();

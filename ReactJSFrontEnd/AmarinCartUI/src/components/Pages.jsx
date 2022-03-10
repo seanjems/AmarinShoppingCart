@@ -31,6 +31,20 @@ class Pages extends Component {
     this.refreshList();
   }
 
+  //On Page delete event
+  handleDelete(id) {
+    if (window.confirm("Are you sure about deleting?")) {
+      fetch(process.env.REACT_APP_API + "pages/" + id, {
+        method: "DELETE",
+        headers: {
+          accept: "text/plain",
+          "Content-Type": "application/json",
+        },
+      });
+      this.refreshList();
+    }
+  }
+
   render() {
     const { pages, pid, ptitle, pslug, pcontent, psorting } = this.state;
 
@@ -82,12 +96,13 @@ class Pages extends Component {
         .then((res) => res.json())
         .then(
           (response) => {
-            console.log(response.status);
-            if (response.ok) {
+            if (response.status >= 200 && response.status < 300) {
               alert("Success");
               this.refreshList();
             } else {
-              alert("Failed to update; " + response.title);
+              alert(
+                "Failed to update; " + response.status + " " + response.title
+              );
             }
           },
           (error) => {
@@ -96,8 +111,6 @@ class Pages extends Component {
           }
         );
     };
-
-    //On form submission method Raised event fromchild
 
     return (
       <div className="mt-2 justify-content-left">
@@ -168,6 +181,14 @@ class Pages extends Component {
                       pcontent={pcontent}
                       psorting={psorting}
                     />
+
+                    {/* DELETE PAGE BUTTON*/}
+                    {/* ///////////////////////////////////////////////// */}
+                    <Button
+                      className="mr-2 btn-danger"
+                      onClick={() => this.handleDelete(page.id)}>
+                      Delete
+                    </Button>
                   </ButtonToolbar>
                 </td>
 
