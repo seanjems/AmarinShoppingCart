@@ -75,13 +75,31 @@ class Pages extends Component {
       })
         .then((res) => res.json())
         .then(
-          (result) => {
-            alert("Success");
-            this.refreshList();
+          (response) => {
+            if (response.status < 300) {
+              alert("Success");
+              this.refreshList();
+            } else {
+              alert(
+                response.status === undefined
+                  ? "Success"
+                  : "Failed to update; " +
+                      response.status +
+                      " " +
+                      response.title
+              );
+              this.refreshList();
+            }
           },
           (error) => {
             // if (isMounted)
-            alert("Failed");
+
+            if (error === undefined) {
+              alert("Failed; " + error.title);
+            } else {
+              alert("Success");
+              this.refreshList();
+            }
           }
         );
       //   return () => {
@@ -115,7 +133,13 @@ class Pages extends Component {
           },
           (error) => {
             // if (isMounted)
-            alert("Failed; " + error.title);
+
+            if (error === undefined) {
+              alert("Failed; " + error.title);
+            } else {
+              alert("Success");
+              this.refreshList();
+            }
           }
         );
     };
@@ -145,11 +169,12 @@ class Pages extends Component {
           className="mt-2 table table-bordered table-striped table-hover"
           size="sm">
           <thead>
+            {/* Setting the width and height for pages table since data may be alot causing bootstrap to squeeze some columns */}
             <tr className="bg-light text-dark">
-              <th>Id</th>
-              <th>Title</th>
-              <th>Content</th>
-              <th></th>
+              <th style={{ width: "5%" }}>Id</th>
+              <th style={{ width: "10%" }}>Title</th>
+              <th style={{ width: "65%" }}>Content</th>
+              <th style={{ width: "20%" }}></th>
             </tr>
           </thead>
           <tbody>
@@ -157,14 +182,16 @@ class Pages extends Component {
               <tr key={page.id}>
                 <td>{page.id}</td>
                 <td>{page.title}</td>
-                <td>{page.content}</td>
+                <td style={{ height: "7em", overflow: "auto" }}>
+                  {page.content}
+                </td>
 
                 {/* EDIT PAGE BUTTON*/}
                 {/* ///////////////////////////////////////////////// */}
                 <td>
                   <ButtonToolbar>
                     <Button
-                      className="mr-2 btn-info btn-sm m-1"
+                      className="m-2 btn-info btn-sm m-1"
                       onClick={() => {
                         this.setState({
                           pid: page.id,
@@ -193,7 +220,7 @@ class Pages extends Component {
                     {/* DELETE PAGE BUTTON*/}
                     {/* ///////////////////////////////////////////////// */}
                     <Button
-                      className="mr-2 btn-danger btn-sm m-1"
+                      className="m-2 btn-danger btn-sm m-1"
                       onClick={() => this.handleDelete(page.id)}>
                       Delete
                     </Button>
@@ -201,7 +228,7 @@ class Pages extends Component {
                     {/* DETAILS PAGE BUTTON*/}
                     {/* ///////////////////////////////////////////////// */}
                     <Button
-                      className="mr-2 btn-success btn-sm m-1"
+                      className="m-2 btn-info btn-sm m-1"
                       onClick={() => {
                         this.setState({
                           pid: page.id,

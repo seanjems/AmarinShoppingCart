@@ -75,17 +75,30 @@ class Categories extends Component {
       })
         .then((res) => res.json())
         .then(
-          (result) => {
-            alert("Success");
-            this.refreshList();
-          },
-          (error) => {
-            // if (isMounted)
-            if (error == null) {
+          (response) => {
+            if (response.status < 300) {
               alert("Success");
               this.refreshList();
             } else {
-              alert("Failed");
+              alert(
+                response.status === undefined
+                  ? "Success"
+                  : "Failed to update; " +
+                      response.status +
+                      " " +
+                      response.title
+              );
+              this.refreshList();
+            }
+          },
+          (error) => {
+            // if (isMounted)
+
+            if (error === undefined) {
+              alert("Failed; " + error.title);
+            } else {
+              alert("Success");
+              this.refreshList();
             }
           }
         );
