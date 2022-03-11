@@ -42,8 +42,9 @@ class Pages extends Component {
           accept: "text/plain",
           "Content-Type": "application/json",
         },
+      }).then(() => {
+        this.refreshList();
       });
-      this.refreshList();
     }
   }
 

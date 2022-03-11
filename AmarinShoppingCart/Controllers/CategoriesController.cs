@@ -46,10 +46,15 @@ namespace AmarinShoppingCart.Controllers
             {
                 return BadRequest();
             }
+            var categoryTest = context.categories.Where(x => x.Id == id).AsNoTracking().FirstOrDefault();
+            if (categoryTest == null)
+            {
+                return NotFound();
+            }
             context.Entry(category).State = EntityState.Modified;
             await context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok();
         }
         //POST /api/categories
         [HttpPost]
