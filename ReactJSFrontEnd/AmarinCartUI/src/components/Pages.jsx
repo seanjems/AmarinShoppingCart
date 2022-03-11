@@ -3,6 +3,7 @@ import { Table, Button, ButtonToolbar } from "react-bootstrap";
 
 import AddPagesModel from "./AddPagesModal";
 import EditPagesModel from "./EditPagesModal";
+import DetailsPagesModel from "./DetailsPagesModal";
 
 class Pages extends Component {
   //declare an array to store data from server
@@ -13,6 +14,7 @@ class Pages extends Component {
       pages: [],
       AddPagesModelShow: false,
       EditPagesModelShow: false,
+      DetailsPagesModelShow: false,
     };
   }
 
@@ -56,6 +58,10 @@ class Pages extends Component {
     let EditPagesModelShowClose = () =>
       this.setState({ EditPagesModelShow: false });
 
+    //defining the onHide function for the Details form
+    let DetailsPagesModelShowClose = () =>
+      this.setState({ DetailsPagesModelShow: false });
+
     //define OnUpdate fn for Entryform so as to update DOM
     let AddPagesModelShowUpdate = (jsondata) => {
       fetch(process.env.REACT_APP_API + "pages", {
@@ -96,13 +102,14 @@ class Pages extends Component {
         .then((res) => res.json())
         .then(
           (response) => {
-            if (response.status >= 200 && response.status < 300) {
+            if (response.status < 300) {
               alert("Success");
               this.refreshList();
             } else {
               alert(
                 "Failed to update; " + response.status + " " + response.title
               );
+              this.refreshList();
             }
           },
           (error) => {
@@ -156,7 +163,7 @@ class Pages extends Component {
                 <td>
                   <ButtonToolbar>
                     <Button
-                      className="mr-2 btn-info"
+                      className="mr-2 btn-info btn-sm m-1"
                       onClick={() => {
                         this.setState({
                           pid: page.id,
@@ -185,10 +192,39 @@ class Pages extends Component {
                     {/* DELETE PAGE BUTTON*/}
                     {/* ///////////////////////////////////////////////// */}
                     <Button
-                      className="mr-2 btn-danger"
+                      className="mr-2 btn-danger btn-sm m-1"
                       onClick={() => this.handleDelete(page.id)}>
                       Delete
                     </Button>
+
+                    {/* DETAILS PAGE BUTTON*/}
+                    {/* ///////////////////////////////////////////////// */}
+                    <Button
+                      className="mr-2 btn-success btn-sm m-1"
+                      onClick={() => {
+                        this.setState({
+                          pid: page.id,
+                          ptitle: page.title,
+                          pslug: page.slug,
+                          pcontent: page.content,
+                          psorting: page.sorting,
+                        });
+                        this.setState({ DetailsPagesModelShow: true });
+                      }}>
+                      Details
+                    </Button>
+
+                    <DetailsPagesModel
+                      show={this.state.DetailsPagesModelShow}
+                      onHide={DetailsPagesModelShowClose} //handle the madalised window close and hide events
+                      //onSubmit={DetailsPagesModelShowUpdate} //receive data from modalised window and handle post from here(parent)
+                      //pass initial values to the edit window
+                      pid={pid}
+                      ptitle={ptitle}
+                      pslug={pslug}
+                      pcontent={pcontent}
+                      psorting={psorting}
+                    />
                   </ButtonToolbar>
                 </td>
 
