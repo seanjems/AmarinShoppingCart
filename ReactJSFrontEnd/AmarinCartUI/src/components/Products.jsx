@@ -71,8 +71,6 @@ class Products extends Component {
     const {
       Products,
       pid,
-      pcategories,
-      psuppliers,
       pproductname,
       pbarcode,
       pcost,
