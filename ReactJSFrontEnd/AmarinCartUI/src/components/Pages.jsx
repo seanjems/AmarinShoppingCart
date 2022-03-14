@@ -205,18 +205,6 @@ class Pages extends Component {
                       Edit
                     </Button>
 
-                    <EditPagesModel
-                      show={this.state.EditPagesModelShow}
-                      onHide={EditPagesModelShowClose} //handle the madalised window close and hide events
-                      onSubmit={EditPagesModelShowUpdate} //receive data from modalised window and handle post from here(parent)
-                      //pass initial values to the edit window
-                      pid={pid}
-                      ptitle={ptitle}
-                      pslug={pslug}
-                      pcontent={pcontent}
-                      psorting={psorting}
-                    />
-
                     {/* DELETE PAGE BUTTON*/}
                     {/* ///////////////////////////////////////////////// */}
                     <Button
@@ -242,6 +230,17 @@ class Pages extends Component {
                       Details
                     </Button>
 
+                    <EditPagesModel
+                      show={this.state.EditPagesModelShow}
+                      onHide={EditPagesModelShowClose} //handle the madalised window close and hide events
+                      onSubmit={EditPagesModelShowUpdate} //receive data from modalised window and handle post from here(parent)
+                      //pass initial values to the edit window
+                      pid={pid}
+                      ptitle={ptitle}
+                      pslug={pslug}
+                      pcontent={pcontent}
+                      psorting={psorting}
+                    />
                     <DetailsPagesModel
                       show={this.state.DetailsPagesModelShow}
                       onHide={DetailsPagesModelShowClose} //handle the madalised window close and hide events

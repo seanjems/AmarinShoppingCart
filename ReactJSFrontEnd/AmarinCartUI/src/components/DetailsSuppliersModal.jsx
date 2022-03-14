@@ -52,13 +52,12 @@ class DetailsCategoryModel extends Component {
           <Notifier onShown={this.onModalShown} />
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
-              Details Category for{" "}
+              Supplier details for{" "}
               <input
-                className="pr-0 pl-0"
+                className="pr-0 pl-0 btnClear"
                 type="text"
                 disabled
-                defaultValue={this.props.pname}></input>
-              <span className="badge badge-small ">this.props.pname</span>
+                defaultValue={this.props.pfullname}></input>
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -72,15 +71,15 @@ class DetailsCategoryModel extends Component {
                     <Form.Control
                       className="row form-control col p-2"
                       type="text"
-                      defaultValue={this.props.pid}
+                      defaultValue={this.props.psupplierid}
                       name="id"
                       disabled
                     />
                     <div className="col p-2">
-                      <label className="row">Category name</label>
+                      <label className="row">Supplier name</label>
                       <input
                         className="row form-control"
-                        defaultValue={this.props.pname}
+                        defaultValue={this.props.pfullname}
                         onChange={this.handleCategoryTitleChage}
                         type="text"
                         disabled
@@ -90,13 +89,25 @@ class DetailsCategoryModel extends Component {
 
                   <Form.Group>
                     <div className="col p-2">
-                      <label className="row">Slug</label>
+                      <label className="row">Email</label>
                       <input
                         className="row form-control"
                         onChange={this.handleCategoryTitleChage}
                         type="text"
                         disabled
-                        defaultValue={this.props.pslug}
+                        defaultValue={this.props.pemail}
+                      />
+                    </div>
+                  </Form.Group>
+                  <Form.Group>
+                    <div className="col p-2">
+                      <label className="row">Contact</label>
+                      <input
+                        className="row form-control"
+                        onChange={this.handleCategoryTitleChage}
+                        type="text"
+                        disabled
+                        defaultValue={this.props.pcontact}
                       />
                     </div>
                   </Form.Group>

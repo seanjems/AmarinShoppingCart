@@ -199,17 +199,6 @@ class Categories extends Component {
                       Edit
                     </Button>
 
-                    <EditCategoriesModel
-                      show={this.state.EditCategoriesModelShow}
-                      onHide={EditCategoriesModelShowClose} //handle the madalised window close and hide events
-                      onSubmit={EditCategoriesModelShowUpdate} //receive data from modalised window and handle post from here(parent)
-                      //pass initial values to the edit window
-                      pid={pid}
-                      pname={pname}
-                      pslug={pslug}
-                      psorting={psorting}
-                    />
-
                     {/* DELETE PAGE BUTTON*/}
                     {/* ///////////////////////////////////////////////// */}
                     <Button
@@ -233,6 +222,17 @@ class Categories extends Component {
                       }}>
                       Details
                     </Button>
+
+                    <EditCategoriesModel
+                      show={this.state.EditCategoriesModelShow}
+                      onHide={EditCategoriesModelShowClose} //handle the madalised window close and hide events
+                      onSubmit={EditCategoriesModelShowUpdate} //receive data from modalised window and handle post from here(parent)
+                      //pass initial values to the edit window
+                      pid={pid}
+                      pname={pname}
+                      pslug={pslug}
+                      psorting={psorting}
+                    />
 
                     <DetailsCategoriesModel
                       show={this.state.DetailsCategoriesModelShow}

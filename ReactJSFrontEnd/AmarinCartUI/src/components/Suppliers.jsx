@@ -201,17 +201,6 @@ class Suppliers extends Component {
                       Edit
                     </Button>
 
-                    <EditSuppliersModel
-                      show={this.state.EditSuppliersModelShow}
-                      onHide={EditSuppliersModelShowClose} //handle the madalised window close and hide events
-                      onSubmit={EditSuppliersModelShowUpdate} //receive data from modalised window and handle post from here(parent)
-                      //pass initial values to the edit window
-                      psupplierid={psupplierid}
-                      pfullname={pfullname}
-                      pemail={pemail}
-                      pcontact={pcontact}
-                    />
-
                     {/* DELETE PAGE BUTTON*/}
                     {/* ///////////////////////////////////////////////// */}
                     <Button
@@ -235,6 +224,17 @@ class Suppliers extends Component {
                       }}>
                       Details
                     </Button>
+
+                    <EditSuppliersModel
+                      show={this.state.EditSuppliersModelShow}
+                      onHide={EditSuppliersModelShowClose} //handle the madalised window close and hide events
+                      onSubmit={EditSuppliersModelShowUpdate} //receive data from modalised window and handle post from here(parent)
+                      //pass initial values to the edit window
+                      psupplierid={psupplierid}
+                      pfullname={pfullname}
+                      pemail={pemail}
+                      pcontact={pcontact}
+                    />
 
                     <DetailsSuppliersModel
                       show={this.state.DetailsSuppliersModelShow}

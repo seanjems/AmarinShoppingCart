@@ -66,7 +66,7 @@ class EditSuppliersModel extends Component {
           <Modal.Body>
             <Row>
               <Col sm={12}>
-                <Form typeof="submit">
+                <Form>
                   <Form.Group>
                     <div className="col p-2">
                       <label className="row">Supplier FullName</label>

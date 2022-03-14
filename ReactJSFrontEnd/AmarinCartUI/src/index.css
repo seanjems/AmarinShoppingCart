@@ -13,6 +13,5 @@ code {
 }
 
 .btnClear {
-  display: inline-block;
-  vertical-align: top;
+  outline: 0mm;
 }
